@@ -1,3 +1,14 @@
+# Visual Studio
+.vs/
+packages/
+
+# Build Artefacts
+build/
+Debug/
+Release/
+bin/
+bin_debug/
+
 # Prerequisites
 *.d
 

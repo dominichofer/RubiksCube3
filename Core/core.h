@@ -1,0 +1,10 @@
+#pragma once
+#include "math.h"
+#include "std2.h"
+#include "twist.h"
+#include "corners.h"
+#include "edges.h"
+#include "random.h"
+#include "twister.h"
+#include "cube.h"
+#include "tables.h"
