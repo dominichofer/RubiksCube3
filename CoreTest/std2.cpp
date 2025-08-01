@@ -85,26 +85,3 @@ TEST(HashTable, states)
 	ht.clear();
 	EXPECT_EQ(ht.retrieve(key), std::nullopt);
 }
-
-TEST(InplaceVector, states)
-{
-	InplaceVector<int, 3> vec;
-	const int value1 = 14; // arbitrary
-	const int value2 = 15; // arbitrary
-	const int value3 = 16; // arbitrary
-
-	// Initially empty
-	EXPECT_EQ(vec.size(), 0);
-	EXPECT_TRUE(vec.empty());
-
-	// Pushing back a value makes it contained
-	vec.push_back(value1);
-	EXPECT_FALSE(vec.empty());
-
-	vec.push_back(value3);
-
-	// Inserting a value in the middle
-	vec.insert(1, value2);
-	EXPECT_EQ(vec.size(), 3);
-	EXPECT_EQ(vec.data(), (std::array<int, 3>{value1, value2, value3}));
-}

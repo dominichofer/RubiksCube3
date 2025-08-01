@@ -4,11 +4,9 @@ TEST(DistanceTable, Corners)
 {
 	DistanceTable table{
 		all_twists,
-		&Corners::index,
-		[](uint64_t i) { return Corners::from_index(i); },
-		Corners::size
+		Corners::index_size
 	};
-	table.fill(Corners{});
+	table.fill(Corners{}, [](const Corners& c) { return c.index(); }, [](uint64_t i) { return Corners::from_index(i); });
 
 	// According to https://oeis.org/A080629
 	EXPECT_EQ(std::ranges::count(table, 0), 1);
@@ -29,8 +27,8 @@ TEST(DistanceTable, Corners)
 	for (int i = 0; i < 100'000; i++)
 	{
 		Corners c = rnd();
-		auto sol = table.solution(c);
+		auto sol = table.solution(c, [](const Corners& c) { return c.index(); });
 		EXPECT_TRUE(c.twisted(sol).is_solved());
-		EXPECT_EQ(table[c], sol.size());
+		EXPECT_EQ(table.distance(c.index()), sol.size());
 	}
 }

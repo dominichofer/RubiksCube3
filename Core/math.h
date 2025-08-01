@@ -97,29 +97,7 @@ constexpr int64_t factorial(int64_t n)
 	return precomputed[n];
 }
 
-template <std::ranges::random_access_range R>
-bool is_even_permutation(const R& permutation)
-{
-	int64_t size = std::ranges::distance(permutation);
-	int64_t count = 0;
-	for (int64_t i = 0; i < size; i++)
-		for (int64_t j = i + 1; j < size; j++)
-			if (permutation[i] > permutation[j])
-				count++;
-	return count % 2 == 0;
-}
-
-bool is_even_permutation(uint64_t lexicographical_index);
-
-template <std::ranges::random_access_range R>
-bool is_odd_permutation(const R& permutation)
-{
-	return not is_even_permutation(permutation);
-}
-
-bool is_odd_permutation(uint64_t lexicographical_index);
-
-int64_t permutation_index(const std::ranges::random_access_range auto& permutation)
+constexpr int64_t permutation_index(const std::ranges::random_access_range auto& permutation)
 {
 	int64_t size = std::ranges::distance(permutation);
 	int64_t index = 0;
@@ -158,3 +136,25 @@ void nth_permutation(int64_t index, std::ranges::range auto& out)
 {
 	nth_permutation(index, std::ranges::begin(out), std::ranges::size(out));
 }
+
+template <std::ranges::random_access_range R>
+bool is_even_permutation(const R& permutation)
+{
+	int64_t size = std::ranges::distance(permutation);
+	int64_t count = 0;
+	for (int64_t i = 0; i < size; i++)
+		for (int64_t j = i + 1; j < size; j++)
+			if (permutation[i] > permutation[j])
+				count++;
+	return count % 2 == 0;
+}
+
+bool is_even_permutation(uint64_t lexicographical_index);
+
+template <std::ranges::random_access_range R>
+bool is_odd_permutation(const R& permutation)
+{
+	return not is_even_permutation(permutation);
+}
+
+bool is_odd_permutation(uint64_t lexicographical_index);

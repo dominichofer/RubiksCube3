@@ -6,10 +6,10 @@ template <typename Cube, typename F1, typename F2>
 static const DistanceTable& get_distance_table(
 	const char* filename,
 	Twists twists,
-	const Cube& origin,
 	F1 index,
 	F2 from_index,
-	std::size_t index_space)
+	std::size_t index_space,
+	const Cube& origin)
 {
 	static DistanceTable table{ std::move(twists), index_space };
 	static bool initialized = false;
@@ -34,10 +34,10 @@ const DistanceTable& Corners_distance_table()
 	return get_distance_table(
 		"..\\corners.dst",
 		all_twists,
-		Corners{},
-		&Corners::index,
-		&Corners::from_index,
-		Corners::index_size
+		[](const Corners& c) { return c.index(); },
+		[](uint64_t i) { return Corners::from_index(i); },
+		Corners::index_size,
+		Corners{}
 	);
 }
 
@@ -46,10 +46,10 @@ const DistanceTable& H0_solution_distance_table()
 	return get_distance_table(
 		"..\\subset.dst",
 		H0::twists,
-		Cube{},
-		&Cube::coset_index,
-		&Cube::from_subset,
-		Cube::set_size
+		[](const Cube& c) { return c.coset_index(); },
+		[](uint64_t i) { return Cube::from_subset(i); },
+		Cube::set_size,
+		Cube{}
 	);
 }
 
@@ -58,9 +58,9 @@ const DistanceTable& H0_subset_distance_table()
 	return get_distance_table(
 		"..\\coset.dst",
 		all_twists,
-		Cube{},
-		&Cube::coset_number,
+		[](const Cube& c) { return c.coset_number(); },
 		[](uint64_t i) { return Cube::from_coset(i, 0); },
-		Cube::cosets
+		Cube::cosets,
+		Cube{}
 	);
 }

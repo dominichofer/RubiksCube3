@@ -64,32 +64,6 @@ static std::array<uint8_t, 8> shuffled(const std::array<uint8_t, 8>& s, int a, i
 	return { s[a], s[b], s[c], s[d], s[e], s[f], s[g], s[h] };
 }
 
-uint8_t Corners::cubie(int index) const
-{
-	return s[index] & 0x0F;
-}
-
-uint8_t Corners::orientation(int index) const
-{
-	return s[index] >> 4;
-}
-
-std::array<uint8_t, 8> Corners::cubies() const
-{
-	std::array<uint8_t, 8> ret;
-	for (int i = 0; i < 8; i++)
-		ret[i] = cubie(i);
-	return ret;
-}
-
-std::array<uint8_t, 8> Corners::orientations() const
-{
-	std::array<uint8_t, 8> ret;
-	for (int i = 0; i < 8; i++)
-		ret[i] = orientation(i);
-	return ret;
-}
-
 Corners::Corners(std::array<uint8_t, 8> corners, std::array<uint8_t, 8> orientations) noexcept
 {
 	for (int i = 0; i < 8; i++)
@@ -160,22 +134,6 @@ Corners Corners::from_index(uint16_t prm, uint16_t ori)
 	uint8_t o0 = ori % 3; ori /= 3;
 	uint8_t o7 = (12 + o0 - o1 - o2 + o3 - o4 + o5 + o6) % 3;
 	return { c, { o0, o1, o2, o3, o4, o5, o6, o7 } };
-}
-
-uint16_t Corners::prm_index() const
-{
-	return static_cast<uint16_t>(permutation_index(cubies()));
-}
-
-uint16_t Corners::ori_index() const
-{
-	uint16_t ret = 0;
-	for (int i = 0; i < 7; i++)
-	{
-		ret *= 3;
-		ret += orientation(i);
-	}
-	return ret;
 }
 
 Corners Corners::from_index(uint32_t index)

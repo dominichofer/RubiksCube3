@@ -3,10 +3,11 @@
 #include "edges.h"
 #include "twist.h"
 #include <cstdint>
+#include <string>
 
 class Cube : public Twistable<Cube>
 {
-	Cube(
+	constexpr Cube(
 		uint16_t c_ori,
 		uint16_t c_prm,
 		uint16_t e_ori,
@@ -41,4 +42,34 @@ public:
 	bool is_solved() const;
 
 	uint64_t hash() const;
+
+	friend std::string to_string(const Cube&);
 };
+
+
+constexpr Cube::Cube(
+	uint16_t c_ori,
+	uint16_t c_prm,
+	uint16_t e_ori,
+	uint8_t e_slice_prm,
+	uint16_t e_non_slice_prm,
+	uint16_t e_slice_loc) noexcept
+	: c_ori(c_ori)
+	, c_prm(c_prm)
+	, e_ori(e_ori)
+	, e_slice_prm(e_slice_prm)
+	, e_non_slice_prm(e_non_slice_prm)
+	, e_slice_loc(e_slice_loc)
+{
+}
+
+constexpr Cube::Cube() noexcept
+	: Cube(
+		Corners{}.ori_index(),
+		Corners{}.prm_index(),
+		Edges{}.ori_index(),
+		Edges{}.slice_prm_index(),
+		Edges{}.non_slice_prm_index(),
+		Edges{}.slice_loc_index())
+{
+}

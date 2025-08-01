@@ -19,16 +19,6 @@ static std::array<uint8_t, 12> shuffled(const std::array<uint8_t, 12>& s, int a,
 	return { s[a], s[b], s[c], s[d], s[e], s[f], s[g], s[h], s[i], s[j], s[k], s[l] };
 }
 
-uint8_t Edges::cubie(int index) const
-{
-	return s[index] & 0x0F;
-}
-
-uint8_t Edges::orientation(int index) const
-{
-	return s[index] >> 4;
-}
-
 std::array<uint8_t, 12> Edges::cubies() const
 {
 	return {
@@ -103,6 +93,11 @@ bool Edges::is_solved() const
 	return *this == Edges{};
 }
 
+bool Edges::is_even_permutation() const
+{
+	return ::is_even_permutation(cubies());
+}
+
 Edges Edges::from_index(uint8_t slice_prm, uint16_t non_slice_prm, uint16_t slice_loc_index, uint16_t ori)
 {
 	std::array<uint8_t, 12> e;
@@ -128,41 +123,6 @@ Edges Edges::from_index(uint8_t slice_prm, uint16_t non_slice_prm, uint16_t slic
 	o[11] = std::popcount(ori) % 2; // parity of the number of 1s in the orientation index
 
 	return Edges{ e, o };
-}
-
-uint8_t Edges::slice_prm_index() const
-{
-	std::array<uint8_t, 4> slice;
-	for (int i = 0, j = 0; i < 12; i++)
-		if (cubie(i) > 7)
-			slice[j++] = cubie(i) - 8;
-	return static_cast<uint8_t>(permutation_index(slice));
-}
-
-uint16_t Edges::non_slice_prm_index() const
-{
-	std::array<uint8_t, 8> non_slice;
-	for (int i = 0, j = 0; i < 12; i++)
-		if (cubie(i) <= 7)
-			non_slice[j++] = cubie(i);
-	return static_cast<uint16_t>(permutation_index(non_slice));
-}
-
-uint16_t Edges::ori_index() const
-{
-	uint16_t ret = 0;
-	for (int i = 0; i < 11; i++)
-		ret |= static_cast<uint16_t>(orientation(i)) << i;
-	return ret;
-}
-
-uint16_t Edges::slice_loc_index() const
-{
-	std::array<uint8_t, 4> loc;
-	for (int i = 0, j = 0; i < 12; i++)
-		if (cubie(i) > 7)
-			loc[j++] = i;
-	return static_cast<uint16_t>(combination_index(12, loc));
 }
 
 std::string to_string(const Edges& e)
