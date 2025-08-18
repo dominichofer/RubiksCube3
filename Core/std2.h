@@ -11,6 +11,26 @@
 #include <string_view>
 #include <vector>
 
+#if defined(_MSC_VER)
+	#include <intrin.h>
+#elif defined(__GNUC__)
+	#include <x86intrin.h>
+#else
+	#error compiler not supported!
+#endif
+
+
+inline void ClearLSB(uint32_t& b) noexcept
+{
+	b &= b - 1;
+}
+
+// Deposit bits from 'src' at bit indices specified by 'mask'.
+inline uint32_t PDep(uint32_t src, uint32_t mask) noexcept
+{
+	return _pdep_u64(src, mask);
+}
+
 namespace
 {
     inline void hash(std::size_t& seed) {}

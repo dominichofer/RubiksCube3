@@ -28,7 +28,7 @@ constexpr int64_t binomial(int64_t n, int64_t k)
 	if (k > n)
 		return 0;
 	if (n <= 12)
-		return binomial_lookup[n][k];
+		return binomial_lookup[n][k]; //TODO: Inline this!
 	if (k == 0 || k == n)
 		return 1;
 	if (k > n - k)

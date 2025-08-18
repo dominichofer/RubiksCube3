@@ -15,7 +15,7 @@ public:
 	{
 	}
 	RandomTwistGenerator(unsigned int seed = std::random_device{}())
-		: RandomTwistGenerator(all_twists, seed)
+		: RandomTwistGenerator(Twists::all(), seed)
 	{
 	}
 
@@ -24,9 +24,9 @@ public:
 		return twists[dist(rng)];
 	}
 
-	Twists operator()(int count)
+	std::vector<Twist> operator()(int count)
 	{
-		Twists result;
+		std::vector<Twist> result;
 		result.reserve(count);
 		for (int i = 0; i < count; i++)
 			result.push_back(this->operator()());
@@ -46,7 +46,7 @@ public:
 	{
 	}
 	RandomCubeGenerator(unsigned int seed = std::random_device{}())
-		: RandomCubeGenerator(Cube{}, all_twists, seed)
+		: RandomCubeGenerator(Cube{}, Twists::all(), seed)
 	{
 	}
 

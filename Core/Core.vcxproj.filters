@@ -20,5 +20,7 @@
     <ClCompile Include="edges.cpp" />
     <ClCompile Include="cube.cpp" />
     <ClCompile Include="tables.cpp" />
+    <ClCompile Include="two_phase.h" />
+    <ClCompile Include="two_phase.cpp" />
   </ItemGroup>
 </Project>

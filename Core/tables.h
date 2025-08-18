@@ -76,9 +76,9 @@ public:
 	auto end() const { return table.end(); }
 
 	template <typename Cube, typename F1>
-	Twists solution(Cube cube, F1 index) const
+	std::vector<Twist> solution(Cube cube, F1 index) const
 	{
-		Twists ret;
+		std::vector<Twist> ret;
 		for (uint8_t d = distance(index(cube)); d > 0; d--)
 			for (Twist t : twists)
 			{

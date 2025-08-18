@@ -154,6 +154,11 @@ uint64_t Cube::coset_number() const
 	return number;
 }
 
+uint32_t Cube::corners_index() const
+{
+	return static_cast<uint32_t>(c_prm * Corners::ori_size + c_ori);
+}
+
 bool Cube::in_subset() const
 {
 	constexpr Cube solved{};

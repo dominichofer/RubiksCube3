@@ -37,6 +37,7 @@ public:
 	static Cube from_coset(uint64_t number, uint64_t index) noexcept;
 	uint64_t coset_index() const;
 	uint64_t coset_number() const;
+	uint32_t corners_index() const;
 
 	bool in_subset() const;
 	bool is_solved() const;

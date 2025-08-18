@@ -2,6 +2,46 @@
 #include "std2.h"
 #include <stdexcept>
 
+void Twists::erase_face(Twist face)
+{
+	switch (face)
+	{
+	case Twist::L1:
+	case Twist::L2:
+	case Twist::L3:
+		b ^= 0b000'000'000'000'000'111;
+		break;
+	case Twist::R1:
+	case Twist::R2:
+	case Twist::R3:
+		b ^= 0b000'000'000'000'111'000;
+		break;
+	case Twist::U1:
+	case Twist::U2:
+	case Twist::U3:
+		b ^= 0b000'000'000'111'000'000;
+		break;
+	case Twist::D1:
+	case Twist::D2:
+	case Twist::D3:
+		b ^= 0b000'000'111'000'000'000;
+		break;
+	case Twist::F1:
+	case Twist::F2:
+	case Twist::F3:
+		b ^= 0b000'111'000'000'000'000;
+		break;
+	case Twist::B1:
+	case Twist::B2:
+	case Twist::B3:
+		b ^= 0b111'000'000'000'000'000;
+		break;
+	case Twist::None:
+		break;
+	default: throw std::invalid_argument("Invalid twist");
+	}
+}
+
 std::string to_string(Twist twist)
 {
 	switch (twist)
@@ -29,22 +69,22 @@ std::string to_string(Twist twist)
 	}
 }
 
-std::string to_string(const Twists& t)
+std::string to_string(const std::vector<Twist>& v)
 {
-	return join(' ', t);
+	return join(' ', v);
 }
 
 Twist twist_from_string(std::string_view s)
 {
-	for (Twist t : all_twists)
+	for (Twist t : Twists::all())
 		if (to_string(t) == s)
 			return t;
 	throw std::invalid_argument("Invalid twist string");
 }
 
-Twists twists_from_string(std::string_view s)
+std::vector<Twist> twists_from_string(std::string_view s)
 {
-	Twists ret;
+	std::vector<Twist> ret;
 	for (size_t i = 0; i < s.size(); i += 3)
 		ret.push_back(twist_from_string(s.substr(i, 2)));
 	return ret;
@@ -77,21 +117,16 @@ Twist inversed(Twist twist)
 	}
 }
 
-Twists inversed(Twists t)
+std::vector<Twist> inversed(std::vector<Twist> t)
 {
 	inverse(t);
 	return t;
 }
 
-void inverse(Twists& t)
+void inverse(std::vector<Twist>& t)
 {
 	for (int8_t i = 0; i < t.size() / 2; ++i)
 		std::swap(t[i], t[t.size() - i - 1]);
 	for (int8_t i = 0; i < t.size(); ++i)
 		t[i] = inversed(t[i]);
-}
-
-bool is_same_face(Twist a, Twist b)
-{
-	return std::to_underlying(a) / 3 == std::to_underlying(b) / 3;
 }

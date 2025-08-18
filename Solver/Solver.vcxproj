@@ -13,19 +13,19 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{05481fdc-1b21-4a26-ab2e-6520d9024f5e}</ProjectGuid>
-    <RootNamespace>Core</RootNamespace>
+    <ProjectGuid>{6da597c9-4c6e-4970-896a-43afdd3ab8e2}</ProjectGuid>
+    <RootNamespace>Solver</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
-    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
-    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
@@ -72,27 +72,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="core.h" />
-    <ClInclude Include="corners.h" />
-    <ClInclude Include="cube.h" />
-    <ClInclude Include="edges.h" />
-    <ClInclude Include="math.h" />
-    <ClInclude Include="random.h" />
-    <ClInclude Include="std2.h" />
-    <ClInclude Include="tables.h" />
-    <ClInclude Include="twist.h" />
-    <ClInclude Include="twister.h" />
+    <ProjectReference Include="..\Core\Core.vcxproj">
+      <Project>{05481fdc-1b21-4a26-ab2e-6520d9024f5e}</Project>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="corners.cpp" />
-    <ClCompile Include="cube.cpp" />
-    <ClCompile Include="edges.cpp" />
-    <ClCompile Include="math.cpp" />
-    <ClCompile Include="std2.cpp" />
-    <ClCompile Include="tables.cpp" />
-    <ClCompile Include="twist.cpp" />
-    <ClCompile Include="two_phase.cpp" />
-    <ClCompile Include="two_phase.h" />
+    <ClCompile Include="main.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
