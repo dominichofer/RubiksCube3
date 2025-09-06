@@ -56,6 +56,8 @@ public:
 	Twist operator[](std::size_t index) const noexcept { return static_cast<Twist>(std::countr_zero(PDep(1 << index, b))); }
 
 	void erase_face(Twist face);
+	void remove(Twists t) { b &= ~t.b; }
+	void keep(Twists t) { b &= t.b; }
 	std::size_t size() const noexcept { return std::popcount(b); }
 
 	twist::Iterator begin() const noexcept { return b; }

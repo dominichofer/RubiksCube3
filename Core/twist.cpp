@@ -9,32 +9,32 @@ void Twists::erase_face(Twist face)
 	case Twist::L1:
 	case Twist::L2:
 	case Twist::L3:
-		b ^= 0b000'000'000'000'000'111;
+		b &= ~0b000'000'000'000'000'111;
 		break;
 	case Twist::R1:
 	case Twist::R2:
 	case Twist::R3:
-		b ^= 0b000'000'000'000'111'000;
+		b &= ~0b000'000'000'000'111'000;
 		break;
 	case Twist::U1:
 	case Twist::U2:
 	case Twist::U3:
-		b ^= 0b000'000'000'111'000'000;
+		b &= ~0b000'000'000'111'000'000;
 		break;
 	case Twist::D1:
 	case Twist::D2:
 	case Twist::D3:
-		b ^= 0b000'000'111'000'000'000;
+		b &= ~0b000'000'111'000'000'000;
 		break;
 	case Twist::F1:
 	case Twist::F2:
 	case Twist::F3:
-		b ^= 0b000'111'000'000'000'000;
+		b &= ~0b000'111'000'000'000'000;
 		break;
 	case Twist::B1:
 	case Twist::B2:
 	case Twist::B3:
-		b ^= 0b111'000'000'000'000'000;
+		b &= ~0b111'000'000'000'000'000;
 		break;
 	case Twist::None:
 		break;
