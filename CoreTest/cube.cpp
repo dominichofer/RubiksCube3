@@ -4,7 +4,7 @@ TEST(Cube, from_subset)
 {
 	auto ref_number = Cube{}.coset_number();
 
-	RandomCubeGenerator<Cube> gen{ Cube{}, H0::twists, 928322 };
+	RandomCubeGenerator<Cube> gen{ Cube{}, Twists::H0(), 928322 };
 	for (int i = 0; i < 1'000'000; i++)
 	{
 		Cube c1 = gen();

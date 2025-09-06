@@ -4,6 +4,7 @@
 #include <cstdint>
 #include <ranges>
 #include <stdexcept>
+#include <immintrin.h>  // For BMI2 intrinsics like _pdep_u64
 
 namespace
 {

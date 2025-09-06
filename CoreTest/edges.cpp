@@ -31,13 +31,13 @@ TEST(Edges, composed_twists)
 
 TEST(Edges, inverse_twists)
 {
-	for (Twist t : all_twists)
+	for (Twist t : Twists::all())
 		EXPECT_TRUE(Edges{}.twisted({ t, inversed(t) }).is_solved());
 }
 
 TEST(Edges, twists_cycle)
 {
-	for (Twist t : all_twists)
+	for (Twist t : Twists::all())
 		EXPECT_TRUE(Edges{}.twisted({ t, t, t, t }).is_solved());
 }
 

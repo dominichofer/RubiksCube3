@@ -15,7 +15,7 @@ TEST(RandomTwistGenerator, generates_all_twists)
 	std::unordered_set<Twist> generated_twists;
 	for (int i = 0; i < 1'000; i++)
 		generated_twists.insert(gen());
-	EXPECT_EQ(generated_twists.size(), all_twists.size());
+	EXPECT_EQ(generated_twists.size(), Twists::all().size());
 }
 
 TEST(RandomCubeGenerator, is_deterministic)

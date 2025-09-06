@@ -3,7 +3,7 @@
 TEST(DistanceTable, Corners)
 {
 	DistanceTable table{
-		all_twists,
+		Twists::all(),
 		Corners::index_size
 	};
 	table.fill(Corners{}, [](const Corners& c) { return c.index(); }, [](uint64_t i) { return Corners::from_index(i); });

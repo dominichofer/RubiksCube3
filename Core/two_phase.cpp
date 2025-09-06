@@ -7,7 +7,8 @@ void TwoPhaseSolver::search(const Cube& cube, int p1_depth, Twist last)
 	{
 		if (phase_2.distance(cube.coset_index()) + twists.size() <= max_solution_length)
 		{
-			twists.append_range(phase_2.solution(cube, [](const Cube& c) { return c.coset_index(); }));
+			auto phase2_solution = phase_2.solution(cube, [](const Cube& c) { return c.coset_index(); });
+			twists.insert(twists.end(), phase2_solution.begin(), phase2_solution.end());
 			throw twists;
 		}
 	}
