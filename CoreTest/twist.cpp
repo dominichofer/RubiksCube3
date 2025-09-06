@@ -23,8 +23,11 @@ TEST(Twists, inversed)
 	EXPECT_EQ(inversed(twists), ref);
 }
 
-// TEST(Twist, is_same_face)
-// {
-// 	EXPECT_TRUE(same_face(Twist::L1, Twist::L2));
-// 	EXPECT_FALSE(same_face(Twist::L1, Twist::R1));
-// }
+TEST(Twist, erase_face)
+{
+	Twists twists = Twists::all();
+	twists.erase_face(Twist::L1);
+	EXPECT_EQ(twists.size(), Twists::all().size() - 3);
+	for (Twist t : { Twist::L1, Twist::L2, Twist::L3 })
+		EXPECT_FALSE(twists.contains(t));
+}

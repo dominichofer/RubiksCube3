@@ -55,6 +55,7 @@ public:
 
 	Twist operator[](std::size_t index) const noexcept { return static_cast<Twist>(std::countr_zero(PDep(1 << index, b))); }
 
+	bool contains(Twist t) const noexcept { return b & (1 << std::to_underlying(t)) != 0; }
 	void erase_face(Twist face);
 	void remove(Twists t) { b &= ~t.b; }
 	void keep(Twists t) { b &= t.b; }
