@@ -25,3 +25,6 @@ add_executable(coretest ${CORETEST_SRC})
 
 target_include_directories(coretest PRIVATE ${CMAKE_CURRENT_SOURCE_DIR} ../Core)
 target_link_libraries(coretest core GTest::GTest GTest::Main)
+
+# Register the test with CTest
+add_test(NAME CoreTests COMMAND coretest)
