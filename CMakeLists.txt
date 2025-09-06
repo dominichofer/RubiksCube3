@@ -1,16 +1,19 @@
 cmake_minimum_required(VERSION 3.10)
 project(RubiksCube3)
+enable_testing()
 
 set(CMAKE_CXX_STANDARD 23)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
-
-# Enable BMI2 intrinsics globally
-if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU" OR CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -mbmi2")
-elseif(CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
-    # For MSVC, enable AVX2 which includes BMI2 support
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /arch:AVX2")
+if (MSVC)
+	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /std:c++latest /EHsc /MP /arch:AVX2")
+	set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} /Od /MDd")
+	set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} /Ox /MD /GL")
+else()
+	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -march=native -w -mbmi2 -fopenmp")
+	set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -g")
+	set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -O3 -DNDEBUG")
 endif()
+
+include(FetchContent)
 
 add_subdirectory(Core)
 add_subdirectory(CoreTest)
