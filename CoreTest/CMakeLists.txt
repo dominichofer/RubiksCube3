@@ -18,3 +18,6 @@ target_link_libraries(
     GTest::GTest
     GTest::Main
 )
+
+include(GoogleTest)
+gtest_discover_tests(CoreTest)
