@@ -1,14 +1,7 @@
-# CMake configuration for CoreTest executable
-cmake_minimum_required(VERSION 3.10)
-project(CoreTest)
+include_directories(${CMAKE_SOURCE_DIR}/Core)
 
-set(CMAKE_CXX_STANDARD 23)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
-
-# Find Google Test
-find_package(GTest REQUIRED)
-
-file(GLOB CORETEST_SRC
+add_executable(
+    CoreTest
     "corners.cpp"
     "cube.cpp"
     "edges.cpp"
@@ -21,10 +14,11 @@ file(GLOB CORETEST_SRC
     "pch.cpp"
 )
 
-add_executable(coretest ${CORETEST_SRC})
+target_link_libraries(
+    CoreTest
+    Core
+    gtest_main
+)
 
-target_include_directories(coretest PRIVATE ${CMAKE_CURRENT_SOURCE_DIR} ../Core)
-target_link_libraries(coretest core GTest::GTest GTest::Main)
-
-# Register the test with CTest
-add_test(NAME CoreTests COMMAND coretest)
+include(GoogleTest)
+gtest_discover_tests(CoreTest)
