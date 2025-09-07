@@ -46,13 +46,12 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
-
+    
     - name: Install dependencies (Ubuntu)
       if: runner.os == 'Linux'
       run: |
         sudo apt-get update
         sudo apt-get install -y libgtest-dev
-
     - name: Install dependencies (Windows)
       if: runner.os == 'Windows'
       run: |

@@ -1,11 +1,5 @@
-# CMake configuration for Core static library
-cmake_minimum_required(VERSION 3.10)
-project(Core)
-
-set(CMAKE_CXX_STANDARD 23)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
-
-file(GLOB CORE_SRC
+add_library(
+    Core STATIC
     "corners.cpp"
     "cube.cpp"
     "edges.cpp"
@@ -16,7 +10,5 @@ file(GLOB CORE_SRC
     "two_phase.cpp"
 )
 
-add_library(core STATIC ${CORE_SRC})
-
-target_include_directories(core PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
-target_compile_options(core PRIVATE -mbmi2)
+target_include_directories(Core PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
+target_link_libraries(Core PUBLIC OpenMP::OpenMP_CXX)
