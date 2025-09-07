@@ -1,5 +1,3 @@
-include_directories(${CMAKE_SOURCE_DIR}/Core)
-
 add_executable(
     CoreTest
     "corners.cpp"
@@ -17,8 +15,6 @@ add_executable(
 target_link_libraries(
     CoreTest
     Core
-    gtest_main
+    GTest::GTest
+    GTest::Main
 )
-
-include(GoogleTest)
-gtest_discover_tests(CoreTest)
